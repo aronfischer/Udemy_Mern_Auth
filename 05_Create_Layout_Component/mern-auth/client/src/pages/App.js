@@ -1,13 +1,9 @@
 import React from "react";
 
-import Navigation from "../core/Navigation";
+import Layout from "../core/Layout";
 
 function App() {
-  return (
-    <div className="App">
-      <Navigation />
-    </div>
-  );
+  return <Layout>Hello World</Layout>;
 }
 
 export default App;
