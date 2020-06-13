@@ -15,6 +15,7 @@
   background: white;
   padding: 5px;
   box-shadow: 2px 2px 20px lightgray;
+  overflow: hidden;
 }
 
 .af-button-box {
@@ -63,6 +64,7 @@
   margin-top: 20px;
   border: none;
   border-bottom: 2px solid #999;
+  display: block;
 }
 
 .af-input-wrapper label {
@@ -74,13 +76,14 @@
 }
 
 .af-input-field:focus + label,
-.af-input-field:focus:not([value=""]) + label {
+.af-input-field:not([value=""]) + label {
   position: absolute;
   top: -12px;
   color: #86a8e7;
 }
 
 input:focus {
+  border-bottom: 2px solid #86a8e7;
   outline: none;
 }
 
