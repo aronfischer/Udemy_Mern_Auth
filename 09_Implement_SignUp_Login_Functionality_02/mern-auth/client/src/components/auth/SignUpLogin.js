@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import "../../styles/auth.css";
 
-const SignUpLogin = () => {
+const SignUpLogin = (props) => {
+  const { start, displayAuth } = props;
+
+  const node = useRef();
+
   const [values, setValues] = useState({
     username: "",
     email: "",
@@ -14,6 +18,31 @@ const SignUpLogin = () => {
     signUp: { left: "400px" },
     btn: { left: "0" },
   });
+
+  useEffect(() => {
+    if (start === "login") {
+      changeToLogin();
+    } else if (start === "signUp") {
+      changeToSignUp();
+    }
+
+    // Add and remove eventlistener for outside click
+    document.addEventListener("mousedown", handOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handOutsideClick);
+    };
+  }, []);
+
+  const handOutsideClick = (event) => {
+    if (node.current.contains(event.target)) {
+      // Handle inside click
+      return;
+    } else {
+      // Handle outside click
+      displayAuth(null);
+    }
+  };
 
   const changeToLogin = () => {
     setStyles({
@@ -49,6 +78,7 @@ const SignUpLogin = () => {
         changeToSignUp={changeToSignUp}
         changeToLogin={changeToLogin}
         handleChange={handleChange}
+        node={node}
       />
     </div>
   );
@@ -57,11 +87,11 @@ const SignUpLogin = () => {
 const SignUpLoginForm = (props) => {
   const { login, signUp, btn } = props.styles;
   const { username, email, password } = props.values;
-  const { changeToLogin, changeToSignUp, handleChange } = props;
+  const { changeToLogin, changeToSignUp, handleChange, node } = props;
 
   return (
     <div className="af-form-wrapper">
-      <div className="af-form-box">
+      <div className="af-form-box" ref={node}>
         <div className="af-button-box">
           <div id="af-btn" style={btn}></div>
           <button
@@ -113,7 +143,7 @@ const SignUpLoginForm = (props) => {
             <input
               type="text"
               className="af-input-field"
-              value="username"
+              value={username}
               onChange={handleChange("username")}
             />
             <label>Name</label>

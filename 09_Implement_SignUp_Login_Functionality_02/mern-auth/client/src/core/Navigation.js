@@ -3,7 +3,9 @@ import { Link, withRouter } from "react-router-dom";
 
 import "../styles/navigation.css";
 
-const Navigation = ({ match }) => {
+const Navigation = ({ match, ...props }) => {
+  const { displayAuth } = props;
+
   const isActive = (urlPath) => {
     if (match.path === urlPath) {
       return { color: "rgba(255,255,255,0.3)" };
@@ -35,13 +37,21 @@ const Navigation = ({ match }) => {
             </li>
 
             <li className="nav-item">
-              <button type="button" className="nav-link">
+              <button
+                type="button"
+                className="nav-link"
+                onClick={() => displayAuth("login")}
+              >
                 Login
               </button>
             </li>
 
             <li className="nav-item">
-              <button type="button" className="nav-link">
+              <button
+                type="button"
+                className="nav-link"
+                onClick={() => displayAuth("signUp")}
+              >
                 Sign up
               </button>
             </li>
