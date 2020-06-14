@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
 
 import "../../styles/auth.css";
 
@@ -12,6 +13,8 @@ const SignUpLogin = (props) => {
     email: "",
     password: "",
   });
+
+  const { email, password } = values;
 
   const [styles, setStyles] = useState({
     login: { left: "50px" },
@@ -70,6 +73,43 @@ const SignUpLogin = (props) => {
     }
   };
 
+  const handleLoginSubmit = (event) => {
+    event.preventDefault();
+
+    axios
+      .post(`${process.env.REACT_APP_BACKEND_URL}/auth/login`, {
+        email,
+        password,
+      })
+      .then((response) => {
+        // Create a notification
+
+        setValues({ username: "", email: "", password: "" });
+      })
+      .catch((error) => {
+        // Create a notification
+      });
+  };
+
+  const handleSignUpSubmit = (event) => {
+    event.preventDefault();
+
+    axios
+      .post(`${process.env.REACT_APP_BACKEND_URL}/auth/sign-up`, {
+        username,
+        email,
+        password,
+      })
+      .then((response) => {
+        // Create a notification
+
+        setValues({ username: "", email: "", password: "" });
+      })
+      .catch((error) => {
+        // Create a notification
+      });
+  };
+
   return (
     <div>
       <SignUpLoginForm
@@ -78,6 +118,8 @@ const SignUpLogin = (props) => {
         changeToSignUp={changeToSignUp}
         changeToLogin={changeToLogin}
         handleChange={handleChange}
+        handleSignUpSubmit={handleSignUpSubmit}
+        handleLoginSubmit={handleLoginSubmit}
         node={node}
       />
     </div>
@@ -87,7 +129,14 @@ const SignUpLogin = (props) => {
 const SignUpLoginForm = (props) => {
   const { login, signUp, btn } = props.styles;
   const { username, email, password } = props.values;
-  const { changeToLogin, changeToSignUp, handleChange, node } = props;
+  const {
+    changeToLogin,
+    changeToSignUp,
+    handleChange,
+    handleLoginSubmit,
+    handleSignUpSubmit,
+    node,
+  } = props;
 
   return (
     <div className="af-form-wrapper">
@@ -130,7 +179,11 @@ const SignUpLoginForm = (props) => {
             <label>Password</label>
           </div>
 
-          <button type="submit" className="af-submit-btn">
+          <button
+            type="submit"
+            className="af-submit-btn"
+            onClick={handleLoginSubmit}
+          >
             Login
           </button>
           <button type="button" className="af-forgot-password-btn">
@@ -167,7 +220,11 @@ const SignUpLoginForm = (props) => {
             <label>Password</label>
           </div>
 
-          <button type="submit" className="af-submit-btn">
+          <button
+            type="submit"
+            className="af-submit-btn"
+            onClick={handleSignUpSubmit}
+          >
             Sign up
           </button>
           <button type="button" className="af-forgot-password-btn">
