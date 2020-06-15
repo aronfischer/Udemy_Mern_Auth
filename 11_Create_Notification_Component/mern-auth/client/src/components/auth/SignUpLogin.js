@@ -4,7 +4,7 @@ import axios from "axios";
 import "../../styles/auth.css";
 
 const SignUpLogin = (props) => {
-  const { start, displayAuth } = props;
+  const { start, displayAuth, createNotification } = props;
 
   const node = useRef();
 
@@ -14,7 +14,7 @@ const SignUpLogin = (props) => {
     password: "",
   });
 
-  const { email, password } = values;
+  const { username, email, password } = values;
 
   const [styles, setStyles] = useState({
     login: { left: "50px" },
@@ -82,12 +82,20 @@ const SignUpLogin = (props) => {
         password,
       })
       .then((response) => {
-        // Create a notification
+        createNotification({
+          type: "success",
+          title: "Login success",
+          message: "You logged in successfully",
+        });
 
         setValues({ username: "", email: "", password: "" });
       })
       .catch((error) => {
-        // Create a notification
+        createNotification({
+          type: "danger",
+          title: "Login error",
+          message: "Something went wrong please try again!",
+        });
       });
   };
 
@@ -101,12 +109,20 @@ const SignUpLogin = (props) => {
         password,
       })
       .then((response) => {
-        // Create a notification
+        createNotification({
+          type: "success",
+          title: "Sign up success",
+          message: `An email has been sent to ${email}. Please verify your email.`,
+        });
 
         setValues({ username: "", email: "", password: "" });
       })
       .catch((error) => {
-        // Create a notification
+        createNotification({
+          type: "danger",
+          title: "Sign up error",
+          message: "Something went wrong please try again!",
+        });
       });
   };
 
