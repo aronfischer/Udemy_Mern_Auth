@@ -3,10 +3,11 @@ const express = require("express");
 // Intitialize our app
 const app = express();
 
-// Handle get request
-app.get("/", (req, res) => {
-  res.send({ message: "Hello from the backend" });
-});
+// Import routes
+const authRoutes = require("./routes/auth");
+
+// Apply middleware
+app.use("/api", authRoutes);
 
 // App listens to
 const port = 5000;
