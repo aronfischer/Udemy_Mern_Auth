@@ -1,10 +1,24 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const mongoose = require("mongoose");
 require("dotenv").config();
 
 // Intitialize our app
 const app = express();
+
+// Connect to MongoDB Atlas
+mongoose
+  .connect(process.env.DATABASE_URI, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  })
+  .then(() => {
+    console.log("Connected to MongoDB Atlas");
+  })
+  .catch((error) => {
+    console.log("Counldn't connect to MongoDB Atlas", error);
+  });
 
 // Import routes
 const authRoutes = require("./routes/auth");
