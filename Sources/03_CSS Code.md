@@ -1,0 +1,34 @@
+1. Create a navigation.css file in your styles folder
+2. Add the below code to the file
+3. Import the file into your Navigation.js file in the core folder
+
+```css
+/* navigation.css */
+@import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
+
+.nav-link,
+.af-navbar {
+  font-family: "Raleway", Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.af-navbar {
+  background-color: #011f40;
+}
+
+.nav-link {
+  color: white;
+  font-size: 17px;
+  margin: 0 10px;
+  background-color: transparent;
+  border: none;
+}
+```
+
+```css
+/* navigation.css */
+button:focus {
+  outline: none;
+}
+```
